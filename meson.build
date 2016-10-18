@@ -3,7 +3,11 @@
 #
 # Licensed under the GNU Lesser General Public License Version 2.1
 
-project('appstream-glib', 'c', version : '0.6.2')
+project('appstream-glib', 'c',
+        version : '0.6.5',
+        license : 'LGPL-2.1+',
+        default_options : ['b_asneeded=True', 'b_lundef=True'],
+        meson_version : '>=0.34.0')
 
 as_version = meson.project_version()
 varr = as_version.split('.')
@@ -38,19 +42,20 @@ as_plugin_version = '2'
 # - If the interface is the same as the previous version, but bugs are
 #   fixed, change:
 #      REVISION += 1
-lt_current = '7'
-lt_revision = '5'
+lt_current = '8'
+lt_revision = '10'
 lt_age = '0'
 lt_version = '@0@.@1@.@2@'.format(lt_current, lt_age, lt_revision)
 
+glib_ver = '>= 2.45.8'
 uuid = dependency('uuid')
-glib = dependency('glib-2.0')
-gmodule = dependency('gmodule-2.0')
-giounix = dependency('gio-unix-2.0')
+glib = dependency('glib-2.0', version : glib_ver)
+gmodule = dependency('gmodule-2.0', version : glib_ver)
+giounix = dependency('gio-unix-2.0', version : glib_ver)
 libarchive = dependency('libarchive')
-soup = dependency('libsoup-2.4', version : '>= 2.24')
+soup = dependency('libsoup-2.4', version : '>= 2.51.92')
 gdk = dependency('gdk-3.0')
-gdkpixbuf = dependency('gdk-pixbuf-2.0', version : '>= 2.14')
+gdkpixbuf = dependency('gdk-pixbuf-2.0', version : '>= 2.31.5')
 libgcab = dependency('libgcab-1.0', required : false)
 
 # builder (default enabled)
